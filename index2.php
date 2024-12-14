@@ -41,7 +41,8 @@ function main(){
         "9" => "----.",
         " " => " "
     );
-    function translate($txt, $morse_code){
+    $letter_morse = array_flip($morse_code);
+    function translate($txt, $morse_code, $letter_morse){
         $regex = "/^[A-Za-z0-9 ]+$/";
 
         if(preg_match($regex,$txt)){
@@ -51,15 +52,22 @@ function main(){
                 if($txt[$i] == " "){
                     echo " ";
                 }
-echo $txt[$i] . " => ". $morse_code[$txt[$i]] . "<br>";
+echo $txt[$i] . " => ". $morse_code[$txt[$i]] . "\n";
             }
         }else{
-            foreach($morse_code as $letter => $morse ){
-                echo $txt. "=>" ."<br>";
+            //si son morse
+            $txt = explode(" ", $txt);
+            foreach($txt as $value){
+                if($value == ""){
+                    echo " " . "\n";
+                }else{
+                echo $letter_morse[$value] ;
+                }
             }
-        }
+
+}
     }
-    translate("..---", $morse_code);
+    translate(".... --- .-.. .-  -- ..- -. -.. ---  --.- ..- .  - .- .-..", $morse_code, $letter_morse);
 }
 
 main();
