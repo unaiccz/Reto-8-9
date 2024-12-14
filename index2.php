@@ -1,7 +1,5 @@
 <?php
-function main(){
-
-    
+function main() {
     $morse_code = array(
         "A" => ".-",
         "B" => "-...",
@@ -42,32 +40,39 @@ function main(){
         " " => " "
     );
     $letter_morse = array_flip($morse_code);
-    function translate($txt, $morse_code, $letter_morse){
-        $regex = "/^[A-Za-z0-9 ]+$/";
 
-        if(preg_match($regex,$txt)){
-            $txt = strtoupper($txt);
-            //si son letras__
-            for($i=0;$i<strlen($txt);$i++){
-                if($txt[$i] == " "){
-                    echo " ";
-                }
-echo $txt[$i] . " => ". $morse_code[$txt[$i]] . "\n";
-            }
-        }else{
-            //si son morse
-            $txt = explode(" ", $txt);
-            foreach($txt as $value){
-                if($value == ""){
-                    echo " " . "\n";
-                }else{
-                echo $letter_morse[$value] ;
-                }
-            }
+    function translate($txt, $morse_code, $letter_morse) {
+        if ($txt == "") {
+            echo "No se ingresó ningún texto";
+        } else {
+            $regex = "/^[A-Za-z0-9 ]+$/";
 
-}
+            if (preg_match($regex, $txt)) {
+                $txt = strtoupper($txt);
+                // si son letras
+                for ($i = 0; $i < strlen($txt); $i++) {
+                    if ($txt[$i] == " ") {
+                        echo " ";
+                    } else {
+                        echo $morse_code[$txt[$i]] . " ";
+                    }
+                }
+            } else {
+                // si son morse
+                $txt = explode(" ", $txt);
+                foreach ($txt as $value) {
+                    if ($value == "") {
+                        echo " ";
+                    } else {
+                        echo $letter_morse[$value];
+                    }
+                }
+            }
+        }
     }
-    translate(".... --- .-.. .-  -- ..- -. -.. ---  --.- ..- .  - .- .-..", $morse_code, $letter_morse);
+
+    translate("hola mundo que tal", $morse_code, $letter_morse);
 }
 
 main();
+?>
